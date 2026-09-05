@@ -1,0 +1,39 @@
+=riscv64-unknown-elf-gcc -O0 -ggdb -nostdlib -march=rv32i -mabi=ilp32 -Wl,-Tm.ld m.s -o main.elf
+
+-O0 // no optimisation is needed 
+-ggdb // whatever binary you create add more details so that the source code can be understood by ggdb
+-nostdlib // hey compiler when you compile this riscv64-unknown-elf then do not include std library
+-march32=rv32i // the architecture is rv32i integer instruction set
+-mabi=ilp32 // if there is once recipe calling to another recipe than how the info to be passed 
+-Wl, // whatever I am passing after the comma that is for the linker
+ pass it the linker script .ld m.s
+
+
+=qemu-system-riscv32 -S -M virt -nographic -bios none -kernel main.elf -gdb tcp::1234
+
+ -S // AS YOU START THE CPU STOP IN THE BEGINNING ITSELF
+ -M // SEPCIFICATION OF THE MACHINE TO ACTI liKE
+ virt // the implementers implements
+ -nographic -bios none // no bios no graphics
+ -kernel // take this elf and treat as executable that needs to be executed
+ -gdb tcp::1234 // provide us a tunnel for this
+
+=gdb-multiarch main.elf -ex "target remote localhost:1234" -ex "break _start" -ex "continue" -q
+
+hey gdb multi arch I am going to start a debug sesion based on main.eld and execute this command that connects to qemu on port 1234
+and sets a breakpoint on the start and then continues the execution
+
+Object copy -  .elf has debug info that gdb used to figure out that m.s is where the source code is
+=riscv64-unknown-elf-objcopy -O binary main.elf main.bin 
+
+throwing away the meta data and only keep the binary file
+main.elf to binary is done via objcopy
+
+
+this prints the raw binary format that prints it in the pretty format
+=xxd -e -c 4 -g 4 main.bin
+
+00000000: 0000006f   o...
+
+an infinite loop 
+_start: j _start
