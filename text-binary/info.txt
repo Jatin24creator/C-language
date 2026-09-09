@@ -37,3 +37,17 @@ this prints the raw binary format that prints it in the pretty format
 
 an infinite loop 
 _start: j _start
+
+For prettier dashboard:
+
+https://github.com/cyrus-and/gdb-dashboard
+
+sudo apt update
+sudo apt install python3.12-venv
+
+rm -rf .venv
+python3 -m venv .venv
+source .venv/bin/activate
+
+python -m pip install --upgrade pip
+python -m pip install pygments
