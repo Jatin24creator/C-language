@@ -4,7 +4,7 @@
 -ggdb // whatever binary you create add more details so that the source code can be understood by ggdb
 -nostdlib // hey compiler when you compile this riscv64-unknown-elf then do not include std library
 -march32=rv32i // the architecture is rv32i integer instruction set
--mabi=ilp32 // if there is once recipe calling to another recipe than how the info to be passed 
+-mabi=ilp32 // if there is one recipe calling to another recipe than how the info to be passed 
 -Wl, // whatever I am passing after the comma that is for the linker
  pass it the linker script .ld m.s
 
